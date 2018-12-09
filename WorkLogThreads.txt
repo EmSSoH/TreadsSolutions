@@ -1,3 +1,61 @@
-Thread day 2 - exercise 1 
+Thread day 2 - Exercise 1 
 
 Reading about Document in java at: https://docs.oracle.com/javase/8/docs/api/org/w3c/dom/Document.html
+
+a) i'm asuming that the runtime is vary long since the Run method has to gather the whole site in a doc
+   before it can extract the date. and that it's only 1 thread that has to do this 3 times before it is done.
+
+b) since it already setup to match the Runnable interface it should be as easy as extending thread.
+
+c) the big difference is that it is much! faster, though the system.out's does not display anything because
+   the threads Run() takes longer time then the time it takes the main methed to reach the system.out's
+   thus the threads has not gathered the information yet for the things being called.
+   so adding the system.out's to the end of run() instead of the main method. would fix it. 
+
+d) just doing the run() took 			1155768923 nanoTime
+   doing it with start() and join() took	705585775  nanoTime
+   a whole decimal faster. 
+
+Exercise 2
+
+Reading about Producer-consumer: https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem
+Reading about BlockingQueue: https://docs.oracle.com/javase/8/docs/api/?java/util/concurrent/BlockingQueue.html
+
+a) the producers takes the url's from Q1 and makes them into documents and puts them into Q2
+   the consumer then takes those docs and "consumes" them. but the producer and consumer is unfinished at this point.
+
+b) after having read the Oracle for BlockingQueue i learned that i can use the poll() to take out a url from the queue but if there is non it returns false or null depending on the opperation
+   and for adding to the producer queue i used put(e) so that it would continuesly try to put it in until it could.
+
+c) here i used poll(time, unit) with time methed to take out a doc,
+   but if there is non to take it waits a set time before checking again and if it doesnt find anything then it gives up on the action.
+   the secound TODO was easy enough, using divs.size() to get the amound of divs and add it to total divs. then printing out the title and the size for the current doc.
+
+d) 1. it is not the order in which they were added to Q1
+   2. because some of the url's take longer then others to convert to a doc. so the faster once gets put into Q2 while an earlier one is still being worked on. 
+   3. i am not sure. with a lock maybe, but that would make 4 producers redundant.
+
+e) i have made a done counter that that ticks up every time a producer finishes it's run().
+   with that the consumer checks to see if it = the number of producers in this instance 4 and if the doc is null if both those are true it closes down.
+   if not then it goes down to the else-if and checks if doc != null (same as before) and does it's thing. 
+   this way the poll() doesnt need to be timed, but then there is the problem that the consumer gets done before the producers put anything in.
+   so it sleeps for 1 secound before begining.
+
+Exercise 3
+
+
+a) 1. it will be done faster.
+   2. i would asume that it depends on the processer running it.
+   3. i would use Put() as it waits indefinitely for an opening to put it in the queue
+   4. i would use take() as it waits indefinitely for something to take, and in this case since we know the set amount there will be.
+      we will not be going into any infinite loops.
+
+b) forgot this one went streight to c and d
+
+c) made the random number generator and used put() as my insert method for the numbersProduced BlockingQueue
+
+d) made the if statements for devinding the numbers into the 2 lists and used take() as my get method for the blockingQueue for reasons described in a) 4.
+
+e) it works. i honestly feel like this one was far easier then exercise 2.
+
+

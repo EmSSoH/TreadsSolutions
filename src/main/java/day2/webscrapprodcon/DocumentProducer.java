@@ -12,10 +12,12 @@ public class DocumentProducer implements Runnable {
   BlockingQueue<String> urlsToUse;
   BlockingQueue<Document> producedDocuments;
   Document doc;
-
-  public DocumentProducer(BlockingQueue<String> urlsToUse, BlockingQueue producedDocuments) {
+  int done;
+          
+  public DocumentProducer(BlockingQueue<String> urlsToUse, BlockingQueue producedDocuments, int done) {
     this.urlsToUse = urlsToUse;
     this.producedDocuments = producedDocuments;
+    this.done = done;
   }
 
   @Override
@@ -23,7 +25,7 @@ public class DocumentProducer implements Runnable {
     boolean moreUrlsToFecth = true;
     while (moreUrlsToFecth) {
       try {
-        String url = null;//TODO: Use the right method on urlsToUse to set this value to either a string (with a url) or null  
+        String url = urlsToUse.poll();//TODO: Use the right method on urlsToUse to set this value to either a string (with a url) or null  
         
         if (url == null) {
           moreUrlsToFecth = false;
@@ -31,6 +33,7 @@ public class DocumentProducer implements Runnable {
 
           doc = Jsoup.connect(url).get(); 
           //TODO Use the right method on producedDocuments to add this doc to the queue
+          producedDocuments.put(doc);
 
         }
       } catch(Exception ex) {
@@ -38,7 +41,7 @@ public class DocumentProducer implements Runnable {
       }
 
     }
-    
+    done ++;
   }
 
 }
