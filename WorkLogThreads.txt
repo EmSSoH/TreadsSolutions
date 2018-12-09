@@ -59,3 +59,7 @@ d) made the if statements for devinding the numbers into the 2 lists and used ta
 e) it works. i honestly feel like this one was far easier then exercise 2.
 
 
+Exercise 4
+
+
+
