@@ -16,7 +16,7 @@ d) just doing the run() took 			1155768923 nanoTime
    doing it with start() and join() took	705585775  nanoTime
    a whole decimal faster. 
 
-Exercise 2
+Exercise 2  (the rewrite of this is in the SequentalPinger repository and project.)
 
 Reading about Producer-consumer: https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem
 Reading about BlockingQueue: https://docs.oracle.com/javase/8/docs/api/?java/util/concurrent/BlockingQueue.html
@@ -61,5 +61,9 @@ e) it works. i honestly feel like this one was far easier then exercise 2.
 
 Exercise 4
 
+i can remember the whole process of this exercise as i have done it a while ago. 
+but i know that i fixed the deadlock by adding a finally to each try-catch that used a lock and released it before going on to the next resource.
+so there is never 2 locks being held at the same time. 
 
 
+ 
